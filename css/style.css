@@ -109,13 +109,13 @@ body {
   justify-content: space-between;
   width: 60%;
   margin: 10px auto;
-  background-color: #6c43af;
 }
 
 .input-form__label {
   float: left;
   margin-left: 10px;
   color: #ffffff;
+  background-color: #6c43af;
 }
 
 .input-form__control {
@@ -131,7 +131,6 @@ body {
   margin-bottom: 0;
   padding: 0 5px;
   /* border: 1px solid black; */
-  background-color: #ffffff;
 }
 
 .input-form__button-list_r__item {
