@@ -13,15 +13,12 @@
 <body>
 
   <header class="main-header topper clearfix">
-    <!-- <div class="main-header__logo">
-      <img src="img/logo.png" width="90" height="90" alt="Изображение логотипа">
-    </div> -->
-    <div class="main-header__info">
-      <p class="main-header__info__item">P3213</p>
-    </div>
-    <div class="main-header__authors">
-      <p class="main-header__authors__item">Свиридов Дмитрий Витальевич<br>Байтаков Абай Жасланович</p>
-    </div>
+    <span class="main-header__info">
+      #6826
+    </span>
+    <span class="main-header__authors">
+      Свиридов Дмитрий Витальевич (P3213)<br>Байтаков Абай Жасланович (P3213)
+    </span>
   </header>
 
   <main class="main-container">
@@ -50,7 +47,7 @@
   
           <div class="input-form__container input-form__container_select">
             <label class="input-form__label input-form__label_x" for="x-select">X</label>
-            <select class="input-form__select input-form__select_x" id="x-select" name="xval">
+            <select class="input-form__control input-form__select input-form__select_x" id="x-select" name="xval">
               <option value="-2">-2</option>
               <option value="-1.5">-1.5</option>
               <option value="-1">-1</option>
@@ -65,13 +62,13 @@
   
           <div class="input-form__container input-form__container_text">
             <label class="input-form__label input-form__label_y" for="y-text">Y</label>
-            <input class="input-form__text input-form__text_y" id="y-text" type="text" name="yval"
+            <input class="input-form__control input-form__text input-form__text_y" id="y-text" type="text" name="yval"
               maxlength="10" autocomplete="off" placeholder="Число от -3 до 5...">
           </div>
   
           <div class="input-form__container input-form__container_buttons">
             <label class="input-form__label input-form__label_r">R</label>
-            <ul class="input-form__button-list_r">
+            <ul class="input-form__control input-form__button-list_r">
               <li class="input-form__button-list_r__item">
                 <button class="input-form__button input-form__button_r" id="r-button1" type="button" name="rval1" value="1">1</button>
               </li>
