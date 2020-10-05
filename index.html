@@ -6,35 +6,45 @@
   <link rel="icon" href="img/favicon-32.ico">
   <link rel="stylesheet" href="css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Лабораторная работа #2</title>
 </head>
 
 <body>
 
   <header class="main-header topper clearfix">
-    <div class="main-header__logo">
+    <!-- <div class="main-header__logo">
       <img src="img/logo.png" width="90" height="90" alt="Изображение логотипа">
+    </div> -->
+    <div class="main-header__info">
+      <p class="main-header__info__item">P3213</p>
     </div>
     <div class="main-header__authors">
-      <p class="main-header__authors__item">Свиридов Дмитрий Витальевич<br>
-        Байтаков Абай Жасланович<br>
-        P3213</p>
+      <p class="main-header__authors__item">Свиридов Дмитрий Витальевич<br>Байтаков Абай Жасланович</p>
     </div>
   </header>
 
   <main class="main-container">
     <h1 class="visually-hidden">Лабораторная работа #2</h1>
 
-    <div class="main-container__left-column">
-      <section class="content-section content-section_graph">
-        <h2 class="content-section__header topper">График</h2>
-        <div class="result-graph_container">
+    <div class="main-container__item main-container__item_left-column">
+      <section class="main-container__item_left-column__item content-section content-section_graph">
+        <h2 class="content-section__header topper">
+          <span class="content-section__header__text">
+            График
+          </span>
+        </h2>
+        <div class="content-container result-graph_container">
           <object type="image/svg+xml" data="img/result-graph.svg"><img src="img/result-graph.png"></object>
         </div>
       </section>
   
-      <section class="content-section content-section_values">
-        <h2 class="content-section__header topper">Данные</h2>
+      <section class="main-container__item_left-column__item content-section content-section_values">
+        <h2 class="content-section__header topper">
+          <span class="content-section__header__text">
+            Данные
+          </span>
+        </h2>
         <form class="input-form" action="" method="POST">
           <p class="input-form__error">Место для ошибок</p>
   
@@ -56,7 +66,7 @@
           <div class="input-form__container input-form__container_text">
             <label class="input-form__label input-form__label_y" for="y-text">Y</label>
             <input class="input-form__text input-form__text_y" id="y-text" type="text" name="yval"
-            maxlength="10" autocomplete="off" placeholder="Число от -3 до 5...">
+              maxlength="10" autocomplete="off" placeholder="Число от -3 до 5...">
           </div>
   
           <div class="input-form__container input-form__container_buttons">
@@ -79,13 +89,24 @@
               </li>
             </ul>
           </div>
+
+          <div class="input-form__control-buttons__container">
+              <button class="input-form__control-buttons__button input-form__control-buttons__button_submit"
+                type="submit">Отправить</button>
+              <button class="input-form__control-buttons__button input-form__control-buttons__button_reset"
+                type="button">Очистить</button>
+          </div>
   
         </form>
       </section>
     </div>
 
-    <section class="content-section content-section_table">
-      <h2 class="content-section__header topper">Таблица</h2>
+    <section class="main-container__item main-container__item_table content-section content-section_table">
+      <h2 class="content-section__header topper">
+        <span class="content-section__header__text">
+          Таблица
+        </span>
+      </h2>
       <div class="result-table_container">
         <table class="result-table">
           <tr class="result-table__header">
