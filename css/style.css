@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: "Open Sans", "Arial", sans-serif;
+  background-color: #e9e6ee;
+}
+
+.visually-hidden {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.topper {
+  font-size: 18px;
+  
+  color: white;
+  background-color: #6c43af;
+}
+
+.main-header {
+  padding: 10px;
+}
+
+.main-header__logo {
+  float: left;
+  border: 1px solid black;
+}
+
+.main-header__authors {
+  float: right;
+  text-align: right;
+}
+
+.main-header__authors__item {
+  vertical-align: middle;
+}
+
+.main-container {
+  display: flex;
+  width: 90%;
+  margin: auto;
+}
+
+.main-container__left-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.content-section {
+  background-color: #ffffff;
+}
+
+.content-section__header {
+  height: 2.35em;
+  font-weight: normal;
+  text-align: center;
+  
+}
