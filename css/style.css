@@ -115,22 +115,19 @@ body {
   justify-content: space-between;
   width: 60%;
   margin: 15px auto;
-  background-color: #6c43af;
 }
 
 .input-form__label {
-  float: left;
-  margin-left: 10px;
-  vertical-align: middle;
+  display: inline-block;
+  min-width: 30px;
+  margin-right: 0;
   color: #ffffff;
+  background-color: #6c43af;
 }
 
 .input-form__control {
   flex-grow: 1;
   min-width: 5px;
-  margin-left: 10px;
-  background-color: #ffffff;
-  border: 1px solid black;
 }
 
 .input-form__button-list_r {
@@ -140,21 +137,10 @@ body {
   margin-top: 0;
   margin-bottom: 0;
   padding: 0 5px;
-  border: none;
 }
 
 .input-form__button-list_r__item {
   display: inline;
-}
-
-.input-form__button_r {
-  font-family: "Open Sans", "Arial", sans-serif;
-  background-color: #ffffff;
-  border: 1px solid black;
-}
-
-.input-form__button_r:hover {
-  background-color: #dfdfdf;
 }
 
 .input-form__control-buttons__container {
