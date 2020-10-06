@@ -1,73 +1,56 @@
 $(function() {
+  let rval;
+
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
-
-  function validateX() {
-    if ($('.x-radio').is(':checked')) {
-      $('.xbox-label').removeClass('box-error');
-      return true;
-    } else {
-      $('.xbox-label').addClass('box-error');
-      return false;
-    }
-  }
   
   function validateY() {
-    const Y_MIN = -5;
+    const Y_MIN = -3;
     const Y_MAX = 5;
-  
-    let yField = $('#y-textinput');
-    let numY = yField.val().replace(',', '.');
+
+    let numY = $('.input-form__text_y').val().replace(',', '.');
   
     if (isNumeric(numY) && numY >= Y_MIN && numY <= Y_MAX)
     {
-      yField.removeClass('text-error');
+      $('.input-form__info').text('Введите координаты точки')
       return true;
     } else {
-      yField.addClass('text-error');
+      $('.input-form__info').text('Введите значение Y от -3 до 5!')
       return false;
     }
   }
   
   function validateR() {
-    if ($('.r-checkbox').is(':checked')) {
-      $('.rbox-label').removeClass('box-error');
+    if (rval !== undefined) {
+      $('.input-form__info').text('Введите координаты точки')
       return true;
     } else {
-      $('.rbox-label').addClass('box-error');
+      $('.input-form__info').text('Выберите значение R!')
       return false;
     }
   }
   
   function validateForm() {
-    return validateX() & validateY() & validateR();
+    return validateY() && validateR();
   }
 
-  $('#input-form').on('submit', function(event) {
+  $('.input-form').on('submit', function(event) {
     event.preventDefault();
     if (!validateForm()) return;
-    $.ajax({
-      url: 'php/main.php',
-      method: 'POST',
-      data: $(this).serialize() + '&timezone=' + new Date().getTimezoneOffset(),
-      dataType: "json",
-      beforeSend: function() {
-        $('.button').attr('disabled', 'disabled');
-      },
-      success: function(data) {
-        $('.button').attr('disabled', false);
-        if (data.validate) {
-          newRow = '<tr>';
-          newRow += '<td>' + data.xval + '</td>';
-          newRow += '<td>' + data.yval + '</td>';
-          newRow += '<td>' + data.rval + '</td>';
-          newRow += '<td>' + data.curtime + '</td>';
-          newRow += '<td>' + data.exectime + '</td>';
-          newRow += '<td>' + data.hitres + '</td>';
-          $('#result-table').append(newRow);
-        }
-      }
-    });
+    newRow = '<tr>';
+    newRow += '<td>' + $('.input-form__select_x').val() + '</td>';
+    newRow += '<td>' + $('.input-form__text_y').val() + '</td>';
+    newRow += '<td>' + rval + '</td>';
+    newRow += '<td>' + '---' + '</td>';
+    newRow += '<td>' + '---' + '</td>';
+    newRow += '<td>' + '???' + '</td>';
+    $('.result-table').append(newRow);
   });
+
+  $('.input-form__button_r').on('click', function(event) {
+    rval = $(this).val();
+    $(this).addClass('input-form__button_r_clicked');
+    $('.input-form__button_r').not(this).removeClass('input-form__button_r_clicked');
+  })
 });

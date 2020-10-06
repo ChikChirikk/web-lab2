@@ -143,6 +143,10 @@ body {
   display: inline;
 }
 
+.input-form__button_r_clicked {
+  border: 2px solid #6c43af; 
+}
+
 .input-form__control-buttons__container {
   margin-top: 15px;
 }
@@ -182,7 +186,7 @@ body {
 .result-table_container {
   flex-grow: 1;
   overflow-y: scroll;
-  min-height: 220px;
+  height: 220px;
 }
 
 .result-table {
