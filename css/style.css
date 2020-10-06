@@ -49,6 +49,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   margin: auto;
+  padding: 20px;
 }
 
 .main-container__item {
@@ -61,12 +62,12 @@ body {
 }
 
 .main-container__item_left-column {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
 }
 
 .main-container__item_left-column__item {
-  display: flex;
-  flex-direction: column;
   flex-basis: 220px;
 }
 
@@ -77,7 +78,7 @@ body {
 
 .content-section__header {
   position: relative;
-  height: 3em;
+  height: 2.8em;
   margin: 0 0 10px;
   font-weight: normal;
   text-align: center;
@@ -94,6 +95,7 @@ body {
 
 .result-graph_container {
   text-align: center;
+  min-height: 220px;
 }
 
 .content-section_values {
@@ -185,6 +187,7 @@ body {
 .result-table_container {
   flex-grow: 1;
   overflow-y: scroll;
+  min-height: 220px;
 }
 
 .result-table {
