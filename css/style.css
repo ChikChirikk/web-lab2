@@ -28,23 +28,25 @@ body {
 
 .main-header {
   padding: 1em;
+  font-size: 15px;
   text-align: center;
 }
 
 .main-header__authors {
   float: right;
   text-align: right;
-  font-size: 14px;
 }
 
 .main-header__info {
   float: left;
+  text-align: left;
 }
 
 .main-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  width: 85%;
   margin: auto;
   padding: 20px;
 }
@@ -143,6 +145,16 @@ body {
 
 .input-form__button-list_r__item {
   display: inline;
+}
+
+.input-form__button_r {
+  font-family: "Open Sans", "Arial", sans-serif;
+  background-color: #ffffff;
+  border: 1px solid black;
+}
+
+.input-form__button_r:hover {
+  background-color: #dfdfdf;
 }
 
 .input-form__control-buttons__container {
