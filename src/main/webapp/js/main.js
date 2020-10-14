@@ -38,14 +38,28 @@ $(function() {
   $('.input-form').on('submit', function(event) {
     event.preventDefault();
     if (!validateForm()) return;
-    newRow = '<tr>';
-    newRow += '<td>' + $('.input-form__select_x').val() + '</td>';
-    newRow += '<td>' + $('.input-form__text_y').val() + '</td>';
-    newRow += '<td>' + rval + '</td>';
-    newRow += '<td>' + '---' + '</td>';
-    newRow += '<td>' + '---' + '</td>';
-    newRow += '<td>' + '???' + '</td>';
-    $('.result-table').append(newRow);
+    $.ajax({
+      url: '/web-lab2',
+      method: 'POST',
+      data: $(this).serialize() + '&rval=' + rval + '&timezone=' + new Date().getTimezoneOffset(),
+      dataType: "json",
+      beforeSend: function() {
+        $('.input-form__control-buttons__button').attr('disabled', 'disabled');
+      },
+      success: function(data) {
+        $('.input-form__control-buttons__button').attr('disabled', false);
+        if (data.validate) {
+          newRow = '<tr>';
+          newRow += '<td>' + data.xval + '</td>';
+          newRow += '<td>' + data.yval + '</td>';
+          newRow += '<td>' + data.rval + '</td>';
+          newRow += '<td>' + data.curtime + '</td>';
+          newRow += '<td>' + data.exectime + '</td>';
+          newRow += '<td>' + data.hitres + '</td>';
+          $('.result-table').append(newRow);
+        }
+      }
+    });
   });
 
   $('.input-form__button_r').on('click', function(event) {

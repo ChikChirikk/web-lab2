@@ -17,10 +17,9 @@ public class ControllerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         if (request.getParameter("xval") != null && request.getParameter("yval") != null &&
-                request.getParameter("rval") != null)
-            // TODO: Заменить на AreaCheckServlet
-            getServletContext().getRequestDispatcher("/index.html").forward(request, response);
-        else
+                request.getParameter("rval") != null) {
+            getServletContext().getNamedDispatcher("AreaCheckServlet").forward(request, response);
+        } else
             getServletContext().getRequestDispatcher("/index.html").forward(request, response);
     }
 }
