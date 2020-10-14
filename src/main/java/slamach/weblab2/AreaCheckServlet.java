@@ -6,6 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class AreaCheckServlet extends HttpServlet {
     @Override
@@ -13,8 +17,10 @@ public class AreaCheckServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
 
+        long startTime = System.nanoTime();
+
         String xString = request.getParameter("xval");
-        String yString = request.getParameter("yval");
+        String yString = request.getParameter("yval").replace(',', '.');
         String rString = request.getParameter("rval");
         boolean isValuesValid = validateValues(xString, yString, rString);
 
@@ -23,8 +29,12 @@ public class AreaCheckServlet extends HttpServlet {
         double rValue = isValuesValid ? Double.parseDouble(rString) : 0;
         boolean isHit = isValuesValid && checkHit(xValue, yValue, rValue);
 
-        String currentTime = "0:0:0";
-        String executionTime = "0:0:0";
+        OffsetDateTime currentTimeObject = OffsetDateTime.now(ZoneOffset.UTC);
+        try {
+            currentTimeObject = currentTimeObject.minusMinutes(Long.parseLong(request.getParameter("timezone")));
+        } catch (NumberFormatException exception) {}
+        String currentTime = currentTimeObject.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        String executionTime = String.valueOf(System.nanoTime() - startTime);
 
         String jsonData = '{' +
         "\"validate\":" + isValuesValid + "," +
@@ -42,15 +52,32 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     private boolean validateX(String xString) {
-        return true;
+        try {
+            Double xRange[] = {-2.0, -1.5, -1.0, -0.5, 0d, 0.5, 1.0, 1.5, 2.0};
+            double xValue = Double.parseDouble(xString);
+            return Arrays.asList(xRange).contains(xValue);
+        } catch (NumberFormatException exception) {
+            return false;
+        }
     }
 
     private boolean validateY(String yString) {
-        return true;
+        try {
+            double yValue = Double.parseDouble(yString);
+            return yValue >= -3 && yValue <= 5;
+        } catch (NumberFormatException exception) {
+            return false;
+        }
     }
 
     private boolean validateR(String rString) {
-        return true;
+        try {
+            Double rRange[] = {1.0, 2.0, 3.0, 4.0, 5.0};
+            double rValue = Double.parseDouble(rString);
+            return Arrays.asList(rRange).contains(rValue);
+        } catch (NumberFormatException exception) {
+            return false;
+        }
     }
 
     private boolean validateValues(String xString, String yString, String rString) {
@@ -58,15 +85,15 @@ public class AreaCheckServlet extends HttpServlet {
     }
 
     private boolean checkTriangle(double xValue, double yValue, double rValue) {
-        return true;
+        return xValue <= 0 && yValue <= 0 && yValue <= (-xValue - rValue);
     }
 
     private boolean checkRectangle(double xValue, double yValue, double rValue) {
-        return true;
+        return xValue >= 0 && yValue >= 0 && xValue <= rValue/2 && yValue <= rValue;
     }
 
     private boolean checkCircle(double xValue, double yValue, double rValue) {
-        return true;
+        return xValue >= 0 && yValue <= 0 && Math.sqrt(xValue*xValue + yValue*yValue) <= rValue;
     }
 
     private boolean checkHit(double xValue, double yValue, double rValue) {
