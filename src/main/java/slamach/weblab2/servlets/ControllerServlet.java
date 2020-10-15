@@ -1,4 +1,4 @@
-package slamach.weblab2;
+package slamach.weblab2.servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +10,7 @@ public class ControllerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/index.html").forward(request, response);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     @Override
@@ -20,6 +20,6 @@ public class ControllerServlet extends HttpServlet {
                 request.getParameter("rval") != null) {
             getServletContext().getNamedDispatcher("AreaCheckServlet").forward(request, response);
         } else
-            getServletContext().getRequestDispatcher("/index.html").forward(request, response);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }

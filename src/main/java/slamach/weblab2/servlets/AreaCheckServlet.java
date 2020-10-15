@@ -1,11 +1,13 @@
-package slamach.weblab2;
+package slamach.weblab2.servlets;
+
+import slamach.weblab2.beans.EntriesBean;
+import slamach.weblab2.beans.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -15,8 +17,6 @@ public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
-
         long startTime = System.nanoTime();
 
         String xString = request.getParameter("xval");
@@ -24,31 +24,30 @@ public class AreaCheckServlet extends HttpServlet {
         String rString = request.getParameter("rval");
         boolean isValuesValid = validateValues(xString, yString, rString);
 
-        double xValue = isValuesValid ? Double.parseDouble(xString) : 0;
-        double yValue = isValuesValid ? Double.parseDouble(yString) : 0;
-        double rValue = isValuesValid ? Double.parseDouble(rString) : 0;
-        boolean isHit = isValuesValid && checkHit(xValue, yValue, rValue);
+        if (isValuesValid) {
+            double xValue = Double.parseDouble(xString);
+            double yValue = Double.parseDouble(yString);
+            double rValue = Double.parseDouble(rString);
+            boolean isHit = checkHit(xValue, yValue, rValue);
 
-        OffsetDateTime currentTimeObject = OffsetDateTime.now(ZoneOffset.UTC);
-        try {
-            currentTimeObject = currentTimeObject.minusMinutes(Long.parseLong(request.getParameter("timezone")));
-        } catch (NumberFormatException exception) {}
-        String currentTime = currentTimeObject.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-        String executionTime = String.valueOf(System.nanoTime() - startTime);
+            OffsetDateTime currentTimeObject = OffsetDateTime.now(ZoneOffset.UTC);
+            String currentTime;
+            try {
+                currentTimeObject = currentTimeObject.minusMinutes(Long.parseLong(request.getParameter("timezone")));
+                currentTime = currentTimeObject.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+            } catch (Exception exception) {
+                currentTime = "HH:mm:ss";
+            }
 
-        String jsonData = '{' +
-        "\"validate\":" + isValuesValid + "," +
-        "\"xval\":\"" + xString + "\"," +
-        "\"yval\":\"" + yString + "\"," +
-        "\"rval\":\"" + rString + "\"," +
-        "\"curtime\":\"" + currentTime + "\"," +
-        "\"exectime\":\"" + executionTime + "\"," +
-        "\"hitres\":" + isHit +
-        "}";
+            String executionTime = String.valueOf(System.nanoTime() - startTime);
 
-        try (PrintWriter writer = response.getWriter()) {
-            writer.println(jsonData);
+            EntriesBean entries = (EntriesBean) request.getSession().getAttribute("entries");
+            if (entries == null) entries = new EntriesBean();
+            entries.getEntries().add(new Entry(xValue, yValue, rValue, currentTime, executionTime, isHit));
+            request.getSession().setAttribute("entries", entries);
         }
+
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     private boolean validateX(String xString) {

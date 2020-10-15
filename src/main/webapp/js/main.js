@@ -36,30 +36,12 @@ $(function() {
   }
 
   $('.input-form').on('submit', function(event) {
-    event.preventDefault();
-    if (!validateForm()) return;
-    $.ajax({
-      url: '/web-lab2',
-      method: 'POST',
-      data: $(this).serialize() + '&rval=' + rval + '&timezone=' + new Date().getTimezoneOffset(),
-      dataType: "json",
-      beforeSend: function() {
-        $('.input-form__control-buttons__button').attr('disabled', 'disabled');
-      },
-      success: function(data) {
-        $('.input-form__control-buttons__button').attr('disabled', false);
-        if (data.validate) {
-          newRow = '<tr>';
-          newRow += '<td>' + data.xval + '</td>';
-          newRow += '<td>' + data.yval + '</td>';
-          newRow += '<td>' + data.rval + '</td>';
-          newRow += '<td>' + data.curtime + '</td>';
-          newRow += '<td>' + data.exectime + '</td>';
-          newRow += '<td>' + data.hitres + '</td>';
-          $('.result-table').append(newRow);
-        }
-      }
-    });
+    if (!validateForm()) {
+      event.preventDefault();
+      return;
+    }
+    $('.input-form__hidden_r').val(rval);
+    $('.input-form__hidden_timezone').val(new Date().getTimezoneOffset());
   });
 
   $('.input-form__button_r').on('click', function(event) {
